@@ -14,15 +14,18 @@
 # limitations under the License.
 #
 
+#
+# Please copy libicuuc.so to a current folder. This issue related to `NEEDED` path to libraries without `SONAME`
+#	https://code.google.com/p/android/issues/detail?id=175589
+#
+
 LOCAL_PATH := $(call my-dir)
 
 #
 # To update:
 #
 
-#  git remote add libxml2 git://git.gnome.org/libxml2
-#  git fetch libxml2
-#  git merge libxml2/master
+#  git merge aosp/upstream-master
 #  mm -j32
 #  # (Make any necessary Android.mk changes and test the new libxml2.)
 #  git push aosp HEAD:master  # Push directly, avoiding gerrit.
@@ -59,15 +62,15 @@ common_CFLAGS += \
 # Static library
 #=======================================================
 
-include $(CLEAR_VARS)
-LOCAL_SRC_FILES := $(common_SRC_FILES)
-LOCAL_C_INCLUDES += $(common_C_INCLUDES)
-LOCAL_CFLAGS += $(common_CFLAGS) -fvisibility=hidden
-LOCAL_SHARED_LIBRARIES += libicuuc
-LOCAL_MODULE := libxml2
-LOCAL_CLANG := true
-LOCAL_ADDITIONAL_DEPENDENCIES += $(LOCAL_PATH)/Android.mk
-include $(BUILD_STATIC_LIBRARY)
+# include $(CLEAR_VARS)
+# LOCAL_SRC_FILES := $(common_SRC_FILES)
+# LOCAL_C_INCLUDES += $(common_C_INCLUDES)
+# LOCAL_CFLAGS += $(common_CFLAGS) -fvisibility=hidden
+# LOCAL_SHARED_LIBRARIES += libicuuc
+# LOCAL_MODULE := libxml2
+# LOCAL_CLANG := true
+# LOCAL_ADDITIONAL_DEPENDENCIES += $(LOCAL_PATH)/Android.mk
+# include $(BUILD_STATIC_LIBRARY)
 
 # Shared library
 #=======================================================
@@ -75,8 +78,9 @@ include $(BUILD_STATIC_LIBRARY)
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(common_SRC_FILES)
 LOCAL_C_INCLUDES := $(common_C_INCLUDES)
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/libiconv-libicu-android/include
 LOCAL_CFLAGS += $(common_CFLAGS)
-LOCAL_SHARED_LIBRARIES := libicuuc
+LOCAL_LDLIBS += libicuuc.so
 LOCAL_MODULE:= libxml2
 LOCAL_CLANG := true
 LOCAL_ADDITIONAL_DEPENDENCIES += $(LOCAL_PATH)/Android.mk
@@ -85,12 +89,12 @@ include $(BUILD_SHARED_LIBRARY)
 # For the host
 # ========================================================
 
-include $(CLEAR_VARS)
-LOCAL_SRC_FILES := $(common_SRC_FILES)
-LOCAL_C_INCLUDES += $(common_C_INCLUDES)
-LOCAL_CFLAGS += $(common_CFLAGS) -fvisibility=hidden
-LOCAL_SHARED_LIBRARIES += libicuuc-host
-LOCAL_MODULE := libxml2
-LOCAL_CLANG := true
-LOCAL_ADDITIONAL_DEPENDENCIES += $(LOCAL_PATH)/Android.mk
-include $(BUILD_HOST_STATIC_LIBRARY)
+# include $(CLEAR_VARS)
+# LOCAL_SRC_FILES := $(common_SRC_FILES)
+# LOCAL_C_INCLUDES += $(common_C_INCLUDES)
+# LOCAL_CFLAGS += $(common_CFLAGS) -fvisibility=hidden
+# LOCAL_SHARED_LIBRARIES += libicuuc-host
+# LOCAL_MODULE := libxml2
+# LOCAL_CLANG := true
+# LOCAL_ADDITIONAL_DEPENDENCIES += $(LOCAL_PATH)/Android.mk
+# include $(BUILD_HOST_STATIC_LIBRARY)
