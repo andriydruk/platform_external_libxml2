@@ -15,8 +15,8 @@
 #
 
 #
-# Please copy libicuuc.so to a current folder. This issue related to `NEEDED` path to libraries without `SONAME`
-#	https://code.google.com/p/android/issues/detail?id=175589
+# libiconv-libicu-android should be compiled first and located ../libiconv-libicu-android
+#	https://github.com/andriydruk/libiconv-libicu-android
 #
 
 LOCAL_PATH := $(call my-dir)
@@ -78,9 +78,9 @@ common_CFLAGS += \
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(common_SRC_FILES)
 LOCAL_C_INCLUDES := $(common_C_INCLUDES)
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/libiconv-libicu-android/include
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../libiconv-libicu-android/include
 LOCAL_CFLAGS += $(common_CFLAGS)
-LOCAL_LDLIBS += libicuuc.so
+LOCAL_LDLIBS += ../libiconv-libicu-android/armeabi-v7a/libicuuc.so
 LOCAL_MODULE:= libxml2
 LOCAL_CLANG := true
 LOCAL_ADDITIONAL_DEPENDENCIES += $(LOCAL_PATH)/Android.mk
