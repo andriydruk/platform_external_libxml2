@@ -78,7 +78,7 @@ common_CFLAGS += \
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(common_SRC_FILES)
 LOCAL_C_INCLUDES := $(common_C_INCLUDES)
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/../armeabi-v7a/libiconv-libicu-android/include
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../libiconv-libicu-android/armeabi-v7a/include
 LOCAL_CFLAGS += $(common_CFLAGS)
 LOCAL_LDLIBS += ../libiconv-libicu-android/armeabi-v7a/libicuuc.so
 LOCAL_MODULE:= libxml2
